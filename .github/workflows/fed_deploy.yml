@@ -20,8 +20,8 @@ jobs:
         node-version: '20.x'
     - run: npm ci
     - run: npm run build  
-    
-    - name: Deploy
+     
+  Deploy:
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
