@@ -2,12 +2,55 @@ import { Avatar, Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import SendIcon from '@mui/icons-material/Send';
 
 const App: React.FC = () => {
 
   const [currentInputCoin, setCurrentInputCoin] = useState('');
+  const [currencies, setCurrencies] = useState([]);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState<any>(null);
+  const open = Boolean(anchorEl);
+
+  const [selectedOutputCurrency, setSelectedOutputCurrency] = useState<any>(null);
+  const [anchorElOut, setAnchorElOut] = useState<null | HTMLElement>(null);
+  const openOut = Boolean(anchorElOut);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/v1/currencies')
+      .then(res => res.json())
+      .then(data => {
+        setCurrencies(data.data);
+        // По умолчанию выбираем BTC, если есть
+        const btc = data.data.find((c: any) => c.code === 'BTC');
+        if (btc) setSelectedCurrency(btc);
+        else if (data.data.length > 0) setSelectedCurrency(data.data[0]);
+        // Для OutputCoinForm тоже
+        if (btc) setSelectedOutputCurrency(btc);
+        else if (data.data.length > 0) setSelectedOutputCurrency(data.data[0]);
+      });
+  }, []);
+
+  const handleCoinPickerClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = (currency: any) => {
+    setAnchorEl(null);
+    if (currency) setSelectedCurrency(currency);
+  };
+
+  const handleOutputCoinPickerClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElOut(event.currentTarget);
+  };
+
+  const handleMenuCloseOut = (currency: any) => {
+    setAnchorElOut(null);
+    if (currency) setSelectedOutputCurrency(currency);
+  };
 
   return (
     <Box
@@ -50,13 +93,21 @@ const App: React.FC = () => {
         <Box id='inputCoinForm' sx={{ maxHeight: '180px', transform: 'translate(0,-20px)' }} >
           <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" />
           <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -128px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
-            <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-              <Avatar sx={{ width: 54, height: 54 }} ></Avatar>
+            <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleCoinPickerClick} style={{ cursor: 'pointer' }}>
+              <Avatar sx={{ width: 54, height: 54 }} src={selectedCurrency ? selectedCurrency.logo : undefined} />
               <Box id='coinText' sx={{ display: 'flex', maxWidth: '100px', alignContent: 'start', flexDirection: 'column' }} >
-                <Typography variant='h6' >CoinCode</Typography>
-                <Typography variant='body2' >Coin desc</Typography>
+                <Typography variant='h6' >{selectedCurrency ? selectedCurrency.code : 'CoinCode'}</Typography>
+                <Typography variant='body2' >{selectedCurrency ? selectedCurrency.desc || selectedCurrency.coin : 'Coin desc'}</Typography>
               </Box>
             </Box>
+            <Menu anchorEl={anchorEl} open={open} onClose={() => handleMenuClose(null)}>
+              {currencies.map((currency: any) => (
+                <MenuItem key={currency.code} onClick={() => handleMenuClose(currency)}>
+                  <img src={currency.logo} alt={currency.code} width={64} height={64} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+                  {currency.code} — {currency.coin}
+                </MenuItem>
+              ))}
+            </Menu>
             <Box id="YouPayTextField" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
               <TextField 
                 id="YouPayAmount"  
@@ -84,13 +135,21 @@ const App: React.FC = () => {
         <Box id='OutputCoinForm' sx={{ transform: 'translate(0, -108px)' }}>
           <img id='ImgOutputCoinForm' src="OutputCoinForm.svg" alt="outputCoinForm" />
           <Box id='ChoosingOutputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -124px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
-            <Box id='CoinPickerOut' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-              <Avatar sx={{ width: 54, height: 54 }} ></Avatar>
+            <Box id='CoinPickerOut' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleOutputCoinPickerClick} style={{ cursor: 'pointer' }}>
+              <Avatar sx={{ width: 54, height: 54 }} src={selectedOutputCurrency ? selectedOutputCurrency.logo : undefined} />
               <Box id='coinTextOut' sx={{ display: 'flex', maxWidth: '100px', alignContent: 'start', flexDirection: 'column' }} >
-                <Typography variant='h6' >oppCode</Typography>
-                <Typography variant='body2' >Coin desc</Typography>
+                <Typography variant='h6' >{selectedOutputCurrency ? selectedOutputCurrency.code : 'oppCode'}</Typography>
+                <Typography variant='body2' >{selectedOutputCurrency ? selectedOutputCurrency.desc || selectedOutputCurrency.coin : 'Coin desc'}</Typography>
               </Box>
             </Box>
+            <Menu anchorEl={anchorElOut} open={openOut} onClose={() => handleMenuCloseOut(null)}>
+              {currencies.map((currency: any) => (
+                <MenuItem key={currency.code} onClick={() => handleMenuCloseOut(currency)}>
+                  <img src={currency.logo} alt={currency.code} width={64} height={64} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+                  {currency.code} — {currency.coin}
+                </MenuItem>
+              ))}
+            </Menu>
             <Box id="YouGetTextField" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
               <Typography id="CoinCodeOut" variant='body2' >CoinCode: </Typography>
               <TextField 
