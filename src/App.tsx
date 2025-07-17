@@ -13,7 +13,7 @@ const App: React.FC = () => {
     <Box sx={{ minHeight: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#181818' }}>
       <Box id= 'mainBox' sx={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '368px' }}>
         <Box id= 'StatusForm' sx={{ position: 'relative'}}>
-          <img id='ImgStatusForm' src="/StatusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%' }} />
+          <img id='ImgStatusForm' src="StatusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%' }} />
           <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '44%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
             <CircularProgress sx={{ color: '#fff', size: 70 }} style={{ width: 70, height: 70,  }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
@@ -24,7 +24,7 @@ const App: React.FC = () => {
         </Box>
 
         <Box id='inputCoinForm' sx={{ width: '100%', maxHeight: '180px', transform: 'translate(0,-20px)' }} >
-          <img id= 'ImgInputCoinForm' src="/InputCoinForm.svg" alt="inputCoinForm" />
+          <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" />
           <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -128px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
             <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
               <Avatar sx={{ width: 54, height: 54 }} ></Avatar>
@@ -51,11 +51,11 @@ const App: React.FC = () => {
         </Box>
 
         <Box id='MainButton' sx={{ position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', transform: 'translate(0, -64px)' }}>
-          <img id="mb" src="/mainButton.svg" alt="MainButton" />
+          <img id="mb" src="mainButton.svg" alt="MainButton" />
         </Box>
 
         <Box id='OutputCoinForm' sx={{ transform: 'translate(0, -108px)' }}>
-          <img id='ImgOutputCoinForm' src="/OutputCoinForm.svg" alt="outputCoinForm" />
+          <img id='ImgOutputCoinForm' src="OutputCoinForm.svg" alt="outputCoinForm" />
           <Box id='ChoosingOutputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -124px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
             <Box id='CoinPickerOut' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
               <Avatar sx={{ width: 54, height: 54 }} ></Avatar>
@@ -84,12 +84,12 @@ const App: React.FC = () => {
         </Box>
 
         <Box id='zazor14px' sx={{ transform: 'translate(0, -188px)', display: 'flex', flexDirection: 'column' }}>
-            <img id='ImgFinalStageForm' src="/FinalStageForm.svg" alt="finalStageForm"  width='368px' />
+            <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm"  width='368px' />
             
             <Box id='FinalForm' sx={{ position: 'absolute', transform: 'translate(28px, 20px)', width: '312px' }} >
               <Box id='FinalButtonsAndText' display='flex' flexDirection='column' gap='8px' >
                 <Box >
-                  <img id='BookButtonImg' src='/bookButton.svg' alt='boobButoon' width='100%'></img>
+                  <img id='BookButtonImg' src='bookButton.svg' alt='boobButoon' width='100%'></img>
                 </Box>
                 <TextField
                   id="RecieveAddress"  
