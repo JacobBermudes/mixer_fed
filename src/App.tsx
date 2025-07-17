@@ -10,8 +10,32 @@ const App: React.FC = () => {
   const [currentInputCoin, setCurrentInputCoin] = useState('');
 
   return (
-    <Box sx={{ minHeight: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#181818' }}>
-      <Box id= 'mainBox' sx={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '368px' }}>
+    <Box
+      id='backgorund'
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        minWidth: '100vw',
+        height: '100vh',
+        width: '100vw',
+        background: 'linear-gradient(135deg, #ff69b4 0%, #8e44ad 50%, #2ecc40 100%, #8e44ad 100%)',
+        overflow: 'auto',
+      }}
+    >
+      <Box
+        id='mainBox'
+        sx={{
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: { xs: '390px', sm: '368px' },
+          margin: '0 auto',
+          padding: { xs: '0 8px', sm: 0 },
+        }}
+      >
         <Box id= 'StatusForm' sx={{ position: 'relative'}}>
           <img id='ImgStatusForm' src="StatusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%' }} />
           <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '44%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
@@ -23,7 +47,7 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='inputCoinForm' sx={{ width: '100%', maxHeight: '180px', transform: 'translate(0,-20px)' }} >
+        <Box id='inputCoinForm' sx={{ maxHeight: '180px', transform: 'translate(0,-20px)' }} >
           <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" />
           <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -128px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
             <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
