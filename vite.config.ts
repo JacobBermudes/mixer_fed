@@ -6,5 +6,5 @@ export default defineConfig({
   server: {
     port: 5173,
   },
-  base: '/expert-carnival/',
+  base: '/mixer_fed/',
 }); 
