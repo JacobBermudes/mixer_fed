@@ -6,25 +6,20 @@ name: NodeJS deploy
 on:
   push:
     branches: [ "master" ]
-
 jobs:
-  build:
-
+  build_and_test:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js '20.x'
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-    - run: npm ci
-    - run: npm run build  
-     
-  Deploy:
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .dist
-        user_name: github-actions[bot]
-        user_email: 41898282+github-actions[bot]@users.noreply.github.com
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: npm install, build
+        run: |
+          npm install
+          npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .dist
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
