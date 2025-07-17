@@ -64,10 +64,13 @@ const App: React.FC = () => {
                   '& .MuiOutlinedInput-root': {borderRadius: '32px'},
                   '& .MuiInputBase-input': {textAlign: 'right'}, 
                   '& .MuiInputLabel-outlined': {transform: 'translate(113px, -9px) scale(0.75)' }, 
-                  '& .MuiOutlinedInput-notchedOutline': {textAlign: 'right'}}} 
+                  '& .MuiOutlinedInput-notchedOutline': {textAlign: 'right'}
+                }}
                 label="Amount" 
                 size='small' 
-                focused>
+                focused
+                slotProps={{ input: { inputMode: 'numeric', inputProps: { pattern: '[0-9]*' } } }}
+              >
               </TextField>
               <Typography id="oppCodeAmount" variant='body2' >oppCode: </Typography>
             </Box>
@@ -92,16 +95,30 @@ const App: React.FC = () => {
               <Typography id="CoinCodeOut" variant='body2' >CoinCode: </Typography>
               <TextField 
                 id="YouGetAmount"  
-                sx={{ maxWidth: '170px',
-                transform: 'rotateZ(180deg) rotateY(180deg)', 
-                '& .MuiOutlinedInput-root': {borderRadius: '32px'},
-                '& .MuiInputBase-input': {textAlign: 'right'}, 
-                '& .MuiInputLabel-outlined': {transform: 'translate(113px, 10px) scale(0.75) rotateY(180deg) rotateZ(180deg)' }, 
-                '& .MuiOutlinedInput-notchedOutline': {textAlign: 'right'},
-                  '& > legend': {position: 'absolute', top: '100%', right: '0', transform: 'translateY(-50%)'} }} 
+                sx={{
+                  maxWidth: '170px',
+                  transform: 'rotateZ(180deg) rotateY(180deg)', 
+                  '& .MuiInputBase-input': {
+                    transform: 'rotateZ(180deg) rotateY(180deg)', 
+                    textAlign: 'right',
+                  },
+                  '& .MuiOutlinedInput-root': { borderRadius: '32px' },
+                  '& .MuiInputLabel-root': {
+                    transform: 'translate(113px, 10px) scale(0.75) rotateY(180deg) rotateZ(180deg)'
+                  },
+                  '& .MuiOutlinedInput-notchedOutline': { textAlign: 'right' },
+                  '& > legend': {
+                    position: 'absolute',
+                    top: '100%',
+                    right: '0',
+                    transform: 'translateY(-50%)'
+                  }
+                }} 
                 label="Amount" 
                 size='small' 
-                focused>
+                focused
+                slotProps={{ input: { inputMode: 'numeric', inputProps: { pattern: '[0-9]*' } } }}
+              >
               </TextField>
             </Box>
           </Box>
