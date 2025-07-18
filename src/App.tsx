@@ -20,7 +20,7 @@ const App: React.FC = () => {
   const openOut = Boolean(anchorElOut);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/v1/currencies')
+    fetch('https://xmr-gate.onrender.com/api/v1/currencies')
       .then(res => res.json())
       .then(data => {
         setCurrencies(data.data);
