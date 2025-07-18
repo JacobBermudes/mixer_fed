@@ -97,14 +97,14 @@ const App: React.FC = () => {
               <Avatar sx={{ width: 54, height: 54 }} src={selectedCurrency ? selectedCurrency.logo : undefined} />
               <Box id='coinText' sx={{ display: 'flex', maxWidth: '100px', alignContent: 'start', flexDirection: 'column' }} >
                 <Typography variant='h6' >{selectedCurrency ? selectedCurrency.code : 'CoinCode'}</Typography>
-                <Typography variant='body2' >{selectedCurrency ? selectedCurrency.desc || selectedCurrency.coin : 'Coin desc'}</Typography>
+                <Typography variant='body2' >{selectedCurrency ? selectedCurrency.name : 'Coin desc'}</Typography>
               </Box>
             </Box>
             <Menu anchorEl={anchorEl} open={open} onClose={() => handleMenuClose(null)}>
               {currencies.map((currency: any) => (
                 <MenuItem key={currency.code} onClick={() => handleMenuClose(currency)}>
                   <img src={currency.logo} alt={currency.code} width={64} height={64} style={{ marginRight: 8, verticalAlign: 'middle' }} />
-                  {currency.code} — {currency.coin}
+                  {currency.name}
                 </MenuItem>
               ))}
             </Menu>
@@ -139,14 +139,14 @@ const App: React.FC = () => {
               <Avatar sx={{ width: 54, height: 54 }} src={selectedOutputCurrency ? selectedOutputCurrency.logo : undefined} />
               <Box id='coinTextOut' sx={{ display: 'flex', maxWidth: '100px', alignContent: 'start', flexDirection: 'column' }} >
                 <Typography variant='h6' >{selectedOutputCurrency ? selectedOutputCurrency.code : 'oppCode'}</Typography>
-                <Typography variant='body2' >{selectedOutputCurrency ? selectedOutputCurrency.desc || selectedOutputCurrency.coin : 'Coin desc'}</Typography>
+                <Typography variant='body2' >{selectedOutputCurrency ? selectedOutputCurrency.name : 'Coin desc'}</Typography>
               </Box>
             </Box>
             <Menu anchorEl={anchorElOut} open={openOut} onClose={() => handleMenuCloseOut(null)}>
               {currencies.map((currency: any) => (
                 <MenuItem key={currency.code} onClick={() => handleMenuCloseOut(currency)}>
                   <img src={currency.logo} alt={currency.code} width={64} height={64} style={{ marginRight: 8, verticalAlign: 'middle' }} />
-                  {currency.code} — {currency.coin}
+                  {currency.name}
                 </MenuItem>
               ))}
             </Menu>
@@ -194,10 +194,22 @@ const App: React.FC = () => {
                 <TextField
                   id="RecieveAddress"  
                   sx={{
-                    transform: 'rotateZ(180deg) rotateY(180deg)',
-                    '& .MuiOutlinedInput-root': {borderRadius: '32px'},
-                    '& .MuiInputLabel-outlined': {width: '100%', transform: 'translateY(9px) rotateY(180deg) rotateZ(180deg)', textAlign: 'center', fontSize: '12px' }, 
-                    '& .MuiOutlinedInput-notchedOutline': {textAlign: 'center', fontSize: '16px'},
+                    transform: 'rotateZ(180deg) rotateY(180deg)', 
+                    '& .MuiInputBase-input': {
+                      transform: 'rotateZ(180deg) rotateY(180deg)', 
+                      textAlign: 'left',
+                    },
+                    '& .MuiOutlinedInput-root': { borderRadius: '32px' },
+                    '& .MuiInputLabel-root': {
+                      transform: 'translate(132px, 10px) scale(0.75) rotateY(180deg) rotateZ(180deg)'
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': { textAlign: 'center' },
+                    '& > legend': {
+                      position: 'absolute',
+                      top: '100%',
+                      right: '0',
+                      transform: 'translateY(-50%)'
+                    },
                     mb: 2
                   }} 
                   label="Address" 
