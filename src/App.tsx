@@ -65,7 +65,12 @@ const App: React.FC = () => {
         background: 'linear-gradient(135deg, #ff69b4 0%, #8e44ad 50%, #2ecc40 100%, #8e44ad 100%)',
         overflow: 'auto',
       }}
-    >
+      >
+      <Box
+        sx={{
+          // width: '90vw'
+        }}
+      >
       <Box
         id='mainBox'
         sx={{
@@ -73,14 +78,15 @@ const App: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          width: '100%',
-          maxWidth: { xs: '390px', sm: '368px' },
-          margin: '0 auto',
-          padding: { xs: '0 8px', sm: 0 },
+          maxWidth: { xs: '100%', sm: '368px' },
         }}
       >
+        <Box id='MainButton' sx={{ position: 'absolute', display: 'flex',  flexDirection: 'column', alignItems: 'center', transform: 'translate(0, -64px)' }}>
+          <img id="mb" src="mainButton.svg" alt="MainButton" />
+        </Box>
+
         <Box id= 'StatusForm' sx={{ position: 'relative'}}>
-          <img id='ImgStatusForm' src="StatusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%' }} />
+          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', maxWidth: 470}}/>
           <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '44%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
             <CircularProgress sx={{ color: '#fff', size: 70 }} style={{ width: 70, height: 70,  }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
@@ -90,8 +96,8 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='inputCoinForm' sx={{ maxHeight: '180px', transform: 'translate(0,-20px)' }} >
-          <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" />
+        <Box id='inputCoinForm' sx={{ height: '180px', marginTop: '4px' }} >
+          <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" style={{ width: '100%', maxWidth: 470 }}/>
           <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -128px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
             <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleCoinPickerClick} style={{ cursor: 'pointer' }}>
               <Avatar sx={{ width: 54, height: 54 }} src={selectedCurrency ? selectedCurrency.logo : undefined} />
@@ -128,12 +134,8 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='MainButton' sx={{ position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', transform: 'translate(0, -64px)' }}>
-          <img id="mb" src="mainButton.svg" alt="MainButton" />
-        </Box>
-
-        <Box id='OutputCoinForm' sx={{ transform: 'translate(0, -108px)' }}>
-          <img id='ImgOutputCoinForm' src="OutputCoinForm.svg" alt="outputCoinForm" />
+        <Box id='OutputCoinForm' sx={{ width: '100%', maxWidth: 470, height: '180px'}}>
+          <img id='ImgOutputCoinForm' src="OutputCoinForm.svg" alt="outputCoinForm" style={{ width: '100%', maxWidth: 470 }}/>
           <Box id='ChoosingOutputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -124px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
             <Box id='CoinPickerOut' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleOutputCoinPickerClick} style={{ cursor: 'pointer' }}>
               <Avatar sx={{ width: 54, height: 54 }} src={selectedOutputCurrency ? selectedOutputCurrency.logo : undefined} />
@@ -183,32 +185,34 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='zazor14px' sx={{ transform: 'translate(0, -188px)', display: 'flex', flexDirection: 'column' }}>
-            <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm"  width='368px' />
+        <Box id='zazor14px' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm" style={{width: '100%', maxWidth: 470 }}/>
             
-            <Box id='FinalForm' sx={{ position: 'absolute', transform: 'translate(28px, 20px)', width: '312px' }} >
-              <Box id='FinalButtonsAndText' display='flex' flexDirection='column' gap='8px' >
-                <Box >
-                  <img id='BookButtonImg' src='bookButton.svg' alt='boobButoon' width='100%'></img>
+            <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '12px' }} >
+              <Box id='FinalButtonsAndText' display='flex' flexDirection='column' gap='8px' alignItems='center' >
+                <Box sx={{ display:'flex', justifyContent:'center' }}>
+                  <img id='BookButtonImg' src='bookButton.svg' alt='boobButoon' width='90%' ></img>
                 </Box>
                 <TextField
                   id="RecieveAddress"  
                   sx={{
+                    width: '90%',
                     transform: 'rotateZ(180deg) rotateY(180deg)', 
                     '& .MuiInputBase-input': {
                       transform: 'rotateZ(180deg) rotateY(180deg)', 
-                      textAlign: 'left',
+                      textAlign: 'center',
                     },
                     '& .MuiOutlinedInput-root': { borderRadius: '32px' },
                     '& .MuiInputLabel-root': {
-                      transform: 'translate(132px, 10px) scale(0.75) rotateY(180deg) rotateZ(180deg)'
+                      transform: 'scale(0.75) rotateY(180deg) rotateZ(180deg) translateX(320%) translateY(-10px)',
+                      textAlign: 'center'
                     },
                     '& .MuiOutlinedInput-notchedOutline': { textAlign: 'center' },
                     '& > legend': {
                       position: 'absolute',
                       top: '100%',
                       right: '0',
-                      transform: 'translateY(-50%)'
+                      transform: 'translateY(-50%) translateX(-50%)'
                     },
                     mb: 2
                   }} 
@@ -219,7 +223,7 @@ const App: React.FC = () => {
                 <Button
                   variant="contained"
                   endIcon={<SendIcon />}
-                  sx={{ width: '100%' }}
+                  sx={{ width: '90%' }}
                 >
                   EXCHANGE
                 </Button>
@@ -227,6 +231,7 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
+      </Box>
       </Box>
     </Box>
   );
