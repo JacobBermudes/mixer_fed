@@ -79,9 +79,12 @@ const App: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           maxWidth: { xs: '100%', sm: '368px' },
+          marginTop: '12px',
+          ml: '6px',
+          mr: '6px',
         }}
       >
-        <Box id='MainButton' sx={{ position: 'absolute', display: 'flex',  flexDirection: 'column', alignItems: 'center', transform: 'translate(0, -64px)' }}>
+        <Box id='MainButton' sx={{ position: 'absolute', display: 'flex',  flexDirection: 'column', alignItems: 'center', transform: 'translate(0, 29vh)' }}>
           <img id="mb" src="mainButton.svg" alt="MainButton" />
         </Box>
 
@@ -96,9 +99,9 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='inputCoinForm' sx={{ height: '180px', marginTop: '4px' }} >
-          <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" style={{ width: '100%', maxWidth: 470 }}/>
-          <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -128px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
+        <Box id='inputCoinForm' sx={{ display: 'flex', width: '100%', maxWidth: 470, alignItems: 'center' }} >
+          <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" style={{ width: '100%', maxWidth: 470}}/>
+          <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex', position: 'absolute', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px', width: '93%' }}>
             <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleCoinPickerClick} style={{ cursor: 'pointer' }}>
               <Avatar sx={{ width: 54, height: 54 }} src={selectedCurrency ? selectedCurrency.logo : undefined} />
               <Box id='coinText' sx={{ display: 'flex', maxWidth: '100px', alignContent: 'start', flexDirection: 'column' }} >
@@ -132,11 +135,11 @@ const App: React.FC = () => {
               <Typography id="oppCodeAmount" variant='body2' >oppCode: </Typography>
             </Box>
           </Box>
-        </Box>
+          </Box>
 
-        <Box id='OutputCoinForm' sx={{ width: '100%', maxWidth: 470, height: '180px'}}>
+        <Box id='OutputCoinForm' sx={{ display: 'flex', marginTop: '4px', width: '100%', maxWidth: 470, alignItems: 'center' }}>
           <img id='ImgOutputCoinForm' src="OutputCoinForm.svg" alt="outputCoinForm" style={{ width: '100%', maxWidth: 470 }}/>
-          <Box id='ChoosingOutputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'relative', transform: 'translate(0%, -124px)', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px' }}>
+          <Box id='ChoosingOutputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px', width: '93%' }}>
             <Box id='CoinPickerOut' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleOutputCoinPickerClick} style={{ cursor: 'pointer' }}>
               <Avatar sx={{ width: 54, height: 54 }} src={selectedOutputCurrency ? selectedOutputCurrency.logo : undefined} />
               <Box id='coinTextOut' sx={{ display: 'flex', maxWidth: '100px', alignContent: 'start', flexDirection: 'column' }} >
@@ -185,7 +188,7 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='zazor14px' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Box id='zazor14px' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',  transform: 'translateY(-1vh)' }}>
             <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm" style={{width: '100%', maxWidth: 470 }}/>
             
             <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '12px' }} >
