@@ -24,12 +24,13 @@ const App: React.FC = () => {
       .then(res => res.json())
       .then(data => {
         setCurrencies(data.data);
-        // По умолчанию выбираем BTC, если есть
+
         const btc = data.data.find((c: any) => c.code === 'BTC');
+        const xmr = data.data.find((c: any) => c.code === 'XMR');
         if (btc) setSelectedCurrency(btc);
         else if (data.data.length > 0) setSelectedCurrency(data.data[0]);
         // Для OutputCoinForm тоже
-        if (btc) setSelectedOutputCurrency(btc);
+        if (xmr) setSelectedOutputCurrency(xmr);
         else if (data.data.length > 0) setSelectedOutputCurrency(data.data[0]);
       });
   }, []);
