@@ -130,7 +130,7 @@ const App: React.FC = () => {
                 slotProps={{ input: { inputMode: 'numeric', inputProps: { pattern: '[0-9]*' } } }}
               >
               </TextField>
-              <Typography id="oppCodeAmount" variant='body2' >oppCode: </Typography>
+              <Typography id="oppCodeAmount" variant='body2' >{selectedOutputCurrency ? selectedOutputCurrency.code : 'oppCode...'}</Typography>
             </Box>
           </Box>
           </Box>
@@ -158,7 +158,7 @@ const App: React.FC = () => {
               ))}
             </Menu>
             <Box id="YouGetTextField" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-              <Typography id="CoinCodeOut" variant='body2' >CoinCode: </Typography>
+              <Typography id="CoinCodeOut" variant='body2' >{selectedCurrency ? selectedCurrency.code : 'coinCode...'}</Typography>
               <TextField 
                 id="YouGetAmount"  
                 sx={{
