@@ -84,12 +84,9 @@ const App: React.FC = () => {
           mr: '6px',
         }}
       >
-        <Box id='MainButton' sx={{ position: 'absolute', display: 'flex',  flexDirection: 'column', alignItems: 'center', transform: 'translate(0, 29vh)' }}>
-          <img id="mb" src="mainButton.svg" alt="MainButton" />
-        </Box>
 
         <Box id= 'StatusForm' sx={{ position: 'relative'}}>
-          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', maxWidth: 470}}/>
+          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', maxWidth: 470, height: '100%', marginBottom: '-14px'}}/>
           <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '44%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
             <CircularProgress sx={{ color: '#fff', size: 70 }} style={{ width: 70, height: 70,  }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
@@ -136,6 +133,10 @@ const App: React.FC = () => {
             </Box>
           </Box>
           </Box>
+
+        <Box id='MainButton' sx={{ position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: '-49px', marginTop: '-49px'}}>
+          <img id="mb" src="mainButton.svg" alt="MainButton" />
+        </Box>
 
         <Box id='OutputCoinForm' sx={{ display: 'flex', marginTop: '4px', width: '100%', maxWidth: 470, alignItems: 'center' }}>
           <img id='ImgOutputCoinForm' src="OutputCoinForm.svg" alt="outputCoinForm" style={{ width: '100%', maxWidth: 470 }}/>
@@ -191,15 +192,15 @@ const App: React.FC = () => {
         <Box id='zazor14px' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',  transform: 'translateY(-1vh)' }}>
             <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm" style={{width: '100%', maxWidth: 470 }}/>
             
-            <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '12px' }} >
+            <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '16px', maxWidth: '92%' }} >
               <Box id='FinalButtonsAndText' display='flex' flexDirection='column' gap='8px' alignItems='center' >
                 <Box sx={{ display:'flex', justifyContent:'center' }}>
-                  <img id='BookButtonImg' src='bookButton.svg' alt='boobButoon' width='90%' ></img>
+                  <img id='BookButtonImg' src='bookButton.svg' alt='boobButoon' width='100%'></img>
                 </Box>
                 <TextField
                   id="RecieveAddress"  
                   sx={{
-                    width: '90%',
+                    width: '100%',
                     transform: 'rotateZ(180deg) rotateY(180deg)', 
                     '& .MuiInputBase-input': {
                       transform: 'rotateZ(180deg) rotateY(180deg)', 
@@ -207,8 +208,10 @@ const App: React.FC = () => {
                     },
                     '& .MuiOutlinedInput-root': { borderRadius: '32px' },
                     '& .MuiInputLabel-root': {
-                      transform: 'scale(0.75) rotateY(180deg) rotateZ(180deg) translateX(320%) translateY(-10px)',
-                      textAlign: 'center'
+                      transform: 'scale(0.75) rotateY(180deg) rotateZ(180deg) translateY(64%)',
+                      transformOrigin: 'center',
+                      textAlign: 'center',
+                      width: '100%'
                     },
                     '& .MuiOutlinedInput-notchedOutline': { textAlign: 'center' },
                     '& > legend': {
@@ -220,13 +223,15 @@ const App: React.FC = () => {
                     mb: 2
                   }} 
                   label="Address" 
-                  size='small' 
+                  size='medium' 
                   focused>
                 </TextField>
                 <Button
                   variant="contained"
                   endIcon={<SendIcon />}
-                  sx={{ width: '90%' }}
+                  style={{
+                    width: '100%'
+                  }}
                 >
                   EXCHANGE
                 </Button>
