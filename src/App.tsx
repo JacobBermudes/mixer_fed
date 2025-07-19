@@ -118,19 +118,20 @@ const App: React.FC = () => {
             <Box id="YouPayTextField" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
               <TextField 
                 id="YouPayAmount"  
-                sx={{ maxWidth: '170px', 
+                sx={{ maxWidth: '200px', 
                   '& .MuiOutlinedInput-root': {borderRadius: '32px'},
-                  '& .MuiInputBase-input': {textAlign: 'right'}, 
-                  '& .MuiInputLabel-outlined': {transform: 'translate(113px, -9px) scale(0.75)' }, 
+                  '& .MuiInputBase-input': {textAlign: 'right', padding: '10px 10px', fontSize: '22px', transform: 'translateX(-5px)'}, 
+                  '& .MuiInputLabel-outlined': {transform: 'translate(142px, -9px) scale(0.75)'}, 
                   '& .MuiOutlinedInput-notchedOutline': {textAlign: 'right'}
                 }}
                 label="Amount" 
-                size='small' 
+                size='medium' 
                 focused
                 slotProps={{ input: { inputMode: 'numeric', inputProps: { pattern: '[0-9]*' } } }}
               >
               </TextField>
-              <Typography id="oppCodeAmount" variant='body2' >{selectedOutputCurrency ? selectedOutputCurrency.code : 'oppCode...'}</Typography>
+              <Typography id="oppCodeAmount" variant='caption' >{selectedOutputCurrency ? selectedOutputCurrency.code : 'oppCode...'}</Typography>
+              <Typography id="textsome" variant='caption'>USDT:</Typography>
             </Box>
           </Box>
           </Box>
@@ -158,19 +159,22 @@ const App: React.FC = () => {
               ))}
             </Menu>
             <Box id="YouGetTextField" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-              <Typography id="CoinCodeOut" variant='body2' >{selectedCurrency ? selectedCurrency.code : 'coinCode...'}</Typography>
+              <Typography id="textsome" variant='caption'>USDT:</Typography>
+              <Typography id="CoinCodeOut" variant='caption' >{selectedCurrency ? selectedCurrency.code : 'coinCode...'}</Typography>
               <TextField 
                 id="YouGetAmount"  
                 sx={{
-                  maxWidth: '170px',
+                  maxWidth: '200px',
                   transform: 'rotateZ(180deg) rotateY(180deg)', 
                   '& .MuiInputBase-input': {
-                    transform: 'rotateZ(180deg) rotateY(180deg)', 
+                    transform: 'rotateZ(180deg) rotateY(180deg) translateX(-5px)', 
                     textAlign: 'right',
+                    padding: '10px 10px',
+                    fontSize: '22px',
                   },
                   '& .MuiOutlinedInput-root': { borderRadius: '32px' },
                   '& .MuiInputLabel-root': {
-                    transform: 'translate(113px, 10px) scale(0.75) rotateY(180deg) rotateZ(180deg)'
+                    transform: 'translate(142px, 10px) scale(0.75) rotateY(180deg) rotateZ(180deg)'
                   },
                   '& .MuiOutlinedInput-notchedOutline': { textAlign: 'right' },
                   '& > legend': {
@@ -181,7 +185,7 @@ const App: React.FC = () => {
                   }
                 }} 
                 label="Amount" 
-                size='small' 
+                size='medium' 
                 focused
                 slotProps={{ input: { inputMode: 'numeric', inputProps: { pattern: '[0-9]*' } } }}
               >
