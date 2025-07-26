@@ -216,7 +216,7 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='LastBlock' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',  transform: 'translateY(-1.7vh)' }}>
+        <Box id='LastBlock' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', transform: 'translateY(-6.5%)' }}>
             <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm" style={{width: '100%', maxWidth: 470 }}/>
             
             <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '12px', maxWidth: '92%' }} >
