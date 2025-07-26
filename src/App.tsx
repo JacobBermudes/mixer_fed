@@ -136,8 +136,8 @@ const App: React.FC = () => {
           </Box>
           </Box>
 
-        <Box id='MainButton' sx={{ position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: '-49px', marginTop: '-49px'}}>
-          <img id="mb" src="mainButton.svg" alt="MainButton" />
+        <Box id='MainButton' sx={{ transform: 'translateY(2px)', position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: '-49px', marginTop: '-49px', width: '98px', height: '98px', justifyContent: 'center', zIndex: 1, cursor: 'pointer' }} onClick={setCurrentInputCoin}>
+          <img id="mb" src="label.svg" alt="MainButton" style={{ width: '75px', height: '75px'}}/>
         </Box>
 
         <Box id='OutputCoinForm' sx={{ display: 'flex', marginTop: '4px', width: '100%', maxWidth: 470, alignItems: 'center' }}>
