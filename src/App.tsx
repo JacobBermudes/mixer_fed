@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SendIcon from '@mui/icons-material/Send';
+import PersonIcon from '@mui/icons-material/Person';
 
 const App: React.FC = () => {
 
@@ -72,6 +73,7 @@ const App: React.FC = () => {
           // width: '90vw'
         }}
       >
+
       <Box
         id='mainBox'
         sx={{
@@ -80,15 +82,35 @@ const App: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           maxWidth: { xs: '100%', sm: '368px' },
-          marginTop: '12px',
+          marginTop: '4px',
           ml: '6px',
           mr: '6px',
         }}
       >
 
+        <Box
+        id='AccountShower'
+        sx={{
+          ml: '6px',
+          mr: '6px',
+          height: '36px',
+          width: '368px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+          zIndex: 1000,
+          flexDirection: 'row',
+          bottom: '12px',
+        }}>
+        <PersonIcon></PersonIcon>
+        <Typography variant='h6' sx={{ fontSize: '16px', fontWeight: 500, color: '#fff' }}>
+          User unknown 
+        </Typography>
+        </Box>
+
         <Box id= 'StatusForm' sx={{ position: 'relative'}}>
-          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', maxWidth: 470, height: '100%', marginBottom: '-14px'}}/>
-          <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '44%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
+          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', maxWidth: 470, height: '100%', marginBottom: '-18px'}}/>
+          <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
             <CircularProgress sx={{ color: '#fff', size: 70 }} style={{ width: 70, height: 70,  }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
               <Typography variant="h5" align='center' maxWidth={'220px'}>Waiting for approval</Typography>
@@ -194,10 +216,10 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='zazor14px' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',  transform: 'translateY(-1vh)' }}>
+        <Box id='LastBlock' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',  transform: 'translateY(-1.7vh)' }}>
             <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm" style={{width: '100%', maxWidth: 470 }}/>
             
-            <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '16px', maxWidth: '92%' }} >
+            <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '12px', maxWidth: '92%' }} >
               <Box id='FinalButtonsAndText' display='flex' flexDirection='column' gap='8px' alignItems='center' >
                 <Box sx={{ display:'flex', justifyContent:'center' }}>
                   <img id='BookButtonImg' src='bookButton.svg' alt='boobButoon' width='100%'></img>
