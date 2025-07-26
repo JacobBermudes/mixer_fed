@@ -10,7 +10,8 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const App: React.FC = () => {
 
-  const [currentInputCoin, setCurrentInputCoin] = useState('');
+  const [currentInputCoin, setCurrentInputCoin] = useState(0.001);
+  const [currentOutputCoin, setCurrentOutputCoin] = useState(0.001);
   const [currencies, setCurrencies] = useState([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedCurrency, setSelectedCurrency] = useState<any>(null);
@@ -103,12 +104,12 @@ const App: React.FC = () => {
           bottom: '12px',
         }}>
         <PersonIcon></PersonIcon>
-        <Typography variant='h6' sx={{ fontSize: '16px', fontWeight: 500, color: '#fff' }}>
+        <Typography variant='h6' sx={{ fontSize: '16px', fontWeight: 500, color: '#000' }}>
           User unknown 
         </Typography>
         </Box>
 
-        <Box id= 'StatusForm' sx={{ position: 'relative'}}>
+        <Box id= 'StatusForm' sx={{ position: 'relative' }}  >
           <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', maxWidth: 470, height: '100%', marginBottom: '-18px'}}/>
           <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
             <CircularProgress sx={{ color: '#fff', size: 70 }} style={{ width: 70, height: 70,  }} variant='indeterminate'></CircularProgress>
@@ -147,12 +148,14 @@ const App: React.FC = () => {
                   '& .MuiOutlinedInput-notchedOutline': {textAlign: 'right'}
                 }}
                 label="Amount" 
-                size='medium' 
+                size='medium'
+                value={currentInputCoin}
+                onChange={(e) => setCurrentInputCoin(e.target.value)} 
                 focused
                 slotProps={{ input: { inputMode: 'numeric', inputProps: { pattern: '[0-9]*' } } }}
               >
               </TextField>
-              <Typography id="oppCodeAmount" variant='caption' >{selectedOutputCurrency ? selectedOutputCurrency.code : 'oppCode...'}</Typography>
+              <Typography id="oppCodeAmount" variant='caption' >{selectedOutputCurrency ? selectedOutputCurrency.code + ':' + currentOutputCoin : 'oppCode...'}</Typography>
               <Typography id="textsome" variant='caption'>USDT:</Typography>
             </Box>
           </Box>
@@ -181,8 +184,8 @@ const App: React.FC = () => {
               ))}
             </Menu>
             <Box id="YouGetTextField" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-              <Typography id="textsome" variant='caption'>USDT:</Typography>
-              <Typography id="CoinCodeOut" variant='caption' >{selectedCurrency ? selectedCurrency.code : 'coinCode...'}</Typography>
+              <Typography id="GetDouble" variant='caption'>USDT: </Typography>
+              <Typography id="CoinCodeOut" variant='caption' >{selectedCurrency ? selectedCurrency.code + ':' + currentInputCoin : 'coinCode...'}</Typography>
               <TextField 
                 id="YouGetAmount"  
                 sx={{
@@ -207,7 +210,9 @@ const App: React.FC = () => {
                   }
                 }} 
                 label="Amount" 
-                size='medium' 
+                size='medium'
+                value={currentOutputCoin}
+                onChange={(e) => setCurrentOutputCoin(e.target.value)} 
                 focused
                 slotProps={{ input: { inputMode: 'numeric', inputProps: { pattern: '[0-9]*' } } }}
               >
