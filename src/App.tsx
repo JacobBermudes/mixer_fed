@@ -70,7 +70,7 @@ const App: React.FC = () => {
         justifyItems: 'center',
         height: '100vh',
         width: '100vw',
-        background:  'rgb(251, 242, 255) 100%)',
+        background: 'linear-gradient(180deg,rgb(214, 32, 250) 0%,rgb(0, 165, 137) 100%)',
         overflow: 'auto',
       }}
       >
@@ -127,17 +127,17 @@ const App: React.FC = () => {
         </Modal>
 
         <Box id= 'StatusForm' sx={{ position: 'relative', width: '100%' }}  >
-          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%', marginBottom: '-18px'}}/>
+          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%', marginBottom: '-18px' }}/>
           <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
-            <CircularProgress sx={{ color: '#fff', size: 70 }} style={{ width: 70, height: 70,  }} variant='indeterminate'></CircularProgress>
+            <CircularProgress sx={{ color: '#fff' }} style={{ width: '96px', height: '96px' }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
-              <Typography variant="h5" align='center' maxWidth={'220px'}>Waiting for approval</Typography>
-              <Typography variant="body1" align='center' maxWidth={'220px'}>Please wait while we process your request</Typography>
+              <Typography variant="h5" align='center' maxWidth={'220px'}>Quick  steps</Typography>
+              <Typography variant="body1" align='center' maxWidth={'220px'}>To exchange</Typography>
             </Box>
           </Box>
         </Box>
 
-        <Box id='inputCoinForm' sx={{ display: 'flex', width: '100%', maxWidth: 470, alignItems: 'center' }} >
+        <Box id='inputCoinForm' sx={{ display: 'flex', width: '100%', maxWidth: 470, alignItems: 'center', marginTop: '-5px' }} >
           <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" style={{ width: '100%', maxWidth: 470}}/>
           <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex', position: 'absolute', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px', width: '93%' }}>
             <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleCoinPickerClick} style={{ cursor: 'pointer' }}>
@@ -178,11 +178,11 @@ const App: React.FC = () => {
           </Box>
           </Box>
 
-        <Box id='MainButton' sx={{ transform: 'translateY(2px)', position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: '-49px', marginTop: '-49px', width: '98px', height: '98px', justifyContent: 'center', zIndex: 1, cursor: 'pointer' }} >
+        {/* <Box id='MainButton' sx={{ transform: 'translateY(2px)', position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: '-49px', marginTop: '-49px', width: '98px', height: '98px', justifyContent: 'center', zIndex: 1, cursor: 'pointer' }} >
           <img id="mb" src="label.svg" alt="MainButton" style={{ width: '75px', height: '75px'}}/>
-        </Box>
+        </Box> */}
 
-        <Box id='OutputCoinForm' sx={{ display: 'flex', marginTop: '4px', width: '100%', maxWidth: 470, alignItems: 'center' }}>
+        <Box id='OutputCoinForm' sx={{ display: 'flex', marginTop: '2px', width: '100%', maxWidth: 470, alignItems: 'center' }}>
           <img id='ImgOutputCoinForm' src="OutputCoinForm.svg" alt="outputCoinForm" style={{ width: '100%', maxWidth: 470 }}/>
           <Box id='ChoosingOutputCoin' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px', width: '93%' }}>
             <Box id='CoinPickerOut' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleOutputCoinPickerClick} style={{ cursor: 'pointer' }}>
