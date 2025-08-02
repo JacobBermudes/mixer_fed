@@ -126,9 +126,9 @@ const App: React.FC = () => {
           </Box>
         </Modal>
 
-        <Box id= 'StatusForm' sx={{ position: 'relative', width: '100%' }}  >
-          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%', marginBottom: '-18px' }}/>
-          <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
+        <Box id= 'StatusForm' sx={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}  >
+          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%' }}/>
+          <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', justifyContent: 'space-around', width: '90%' }}>
             <CircularProgress sx={{ color: '#fff' }} style={{ width: '96px', height: '96px' }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
               <Typography variant="h5" align='center' maxWidth={'220px'}>Quick  steps</Typography>
@@ -137,7 +137,7 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='inputCoinForm' sx={{ display: 'flex', width: '100%', maxWidth: 470, alignItems: 'center', marginTop: '-5px' }} >
+        <Box id='inputCoinForm' sx={{ display: 'flex', width: '100%', maxWidth: 470, alignItems: 'center', marginTop: '-4%' }} >
           <img id= 'ImgInputCoinForm' src="InputCoinForm.svg" alt="inputCoinForm" style={{ width: '100%', maxWidth: 470}}/>
           <Box id='ChoosingInputCoin' sx={{ alignItems: 'center', display: 'flex', position: 'absolute', justifyContent: 'space-between', marginLeft: '10px', marginRight: '15px', width: '93%' }}>
             <Box id='CoinPicker' sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }} onClick={handleCoinPickerClick} style={{ cursor: 'pointer' }}>
