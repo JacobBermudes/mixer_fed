@@ -13,11 +13,12 @@ const App: React.FC = () => {
 
   const [openAccount, setOpenAccount] = useState(false);
   const [loged, setLoged] = useState(false);
+  const [password, setPassword] = useState('');
 
   const [currentInputCoin, setCurrentInputCoin] = useState("0.001");
   const [currentOutputCoin, setCurrentOutputCoin] = useState("0.001");
   const [currencies, setCurrencies] = useState([]);
-  const [currentUsername, setCurrentUsername] = useState("Unknown");
+  const [currentUsername, setCurrentUsername] = useState("");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedCurrency, setSelectedCurrency] = useState<any>(null);
   const open = Boolean(anchorEl);
@@ -26,7 +27,7 @@ const App: React.FC = () => {
   const [anchorElOut, setAnchorElOut] = useState<null | HTMLElement>(null);
   const openOut = Boolean(anchorElOut);
 
-  const jwt_token = localStorage.getItem('jwt');
+  let jwt_token: string | null = null;
 
   useEffect(() => {
     fetch('https://xmr-gate.onrender.com/api/v1/currencies')
@@ -42,7 +43,35 @@ const App: React.FC = () => {
         if (xmr) setSelectedOutputCurrency(xmr);
         else if (data.data.length > 0) setSelectedOutputCurrency(data.data[0]);
       });
+    jwt_token = localStorage.getItem('jwt');
   }, []);
+
+  function loginUserPass(username: string, password: string) {
+    fetch('https://xmr-gate.onrender.com/api/v1/login', {
+      method: 'POST',
+      body: JSON.stringify(
+        { username: username,
+          password: password }
+      )
+      }).then(res => {
+        if (!res.ok) {
+          throw new Error('Login failed');
+        }
+        return res.json();
+      })
+      .then(data => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          setLoged(true);
+        } else {
+          throw new Error('No token received');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Login failed: ' + error.message);
+      });
+  }
 
   const handleCoinPickerClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -109,26 +138,56 @@ const App: React.FC = () => {
         style={{ cursor: 'pointer' }}>
         <PersonIcon></PersonIcon>
         <Typography variant='h6' sx={{ fontSize: '16px', fontWeight: 500, color: '#000' }} >
-          { loged ? currentUsername : 'LOG IN' }
+          { loged ? jwt_token : 'SIGN IN' }
         </Typography>
         </Box>
 
         <Modal
-          open={openAccount}
+          open={openAccount && !loged}
           onClose={() => setOpenAccount(false)}
           aria-labelledby="account-modal-title"
           sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute' }}
         >
-          <Box sx={{ position: 'absolute', boxShadow: 24, p: 4, borderRadius: 2 }}>
+          <Box sx={{ position: 'absolute', boxShadow: 24, p: 4, borderRadius: 2, backgroundColor: '#fff' }}>
             <Typography id="account-modal-title" variant="h6" component="h2">
-              Account Information
+              Log-in
             </Typography>
+            <TextField
+              id="username"
+              label="Username"
+              value={currentUsername}
+              sx={{ width: '100%'}}
+              onChange={(e) => setCurrentUsername(e.target.value)}
+              focused
+            >
+            </TextField>
+            <TextField
+              id="passowrd"
+              label="Password"
+              value={password}
+              sx={{ width: '100%', marginTop: '16px' }}
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              focused
+            >
+            </TextField>
+            <Button
+              variant="contained"
+              sx={{ width: '100%', marginTop: '16px' }}
+              onClick={() => {
+                if (password) {
+                  loginUserPass(currentUsername, password);
+                  setOpenAccount(false);
+                }
+              }}>
+              Log In
+            </Button>
           </Box>
         </Modal>
 
         <Box id= 'StatusForm' sx={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}  >
           <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%' }}/>
-          <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', justifyContent: 'space-around', width: '90%' }}>
+          <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', justifyContent: 'space-around', width: '90%', mt: '-5%' }}>
             <CircularProgress sx={{ color: '#fff' }} style={{ width: '96px', height: '96px' }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
               <Typography variant="h5" align='center' maxWidth={'220px'}>Quick  steps</Typography>
