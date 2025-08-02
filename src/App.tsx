@@ -1,5 +1,6 @@
 import { Avatar, Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react';
@@ -10,9 +11,13 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const App: React.FC = () => {
 
-  const [currentInputCoin, setCurrentInputCoin] = useState(0.001);
-  const [currentOutputCoin, setCurrentOutputCoin] = useState(0.001);
+  const [openAccount, setOpenAccount] = useState(false);
+  const [loged, setLoged] = useState(false);
+
+  const [currentInputCoin, setCurrentInputCoin] = useState("0.001");
+  const [currentOutputCoin, setCurrentOutputCoin] = useState("0.001");
   const [currencies, setCurrencies] = useState([]);
+  const [currentUsername, setCurrentUsername] = useState("Unknown");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedCurrency, setSelectedCurrency] = useState<any>(null);
   const open = Boolean(anchorEl);
@@ -20,6 +25,8 @@ const App: React.FC = () => {
   const [selectedOutputCurrency, setSelectedOutputCurrency] = useState<any>(null);
   const [anchorElOut, setAnchorElOut] = useState<null | HTMLElement>(null);
   const openOut = Boolean(anchorElOut);
+
+  const jwt_token = localStorage.getItem('jwt');
 
   useEffect(() => {
     fetch('https://xmr-gate.onrender.com/api/v1/currencies')
@@ -60,21 +67,14 @@ const App: React.FC = () => {
       id='backgorund'
       sx={{
         alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh',
-        minWidth: '100vw',
+        justifyItems: 'center',
         height: '100vh',
         width: '100vw',
-        background: 'linear-gradient(135deg, #ff69b4 0%, #8e44ad 50%, #2ecc40 100%, #8e44ad 100%)',
+        background:  'rgb(251, 242, 255) 100%)',
         overflow: 'auto',
       }}
       >
-      <Box
-        sx={{
-          // width: '90vw'
-        }}
-      >
-
+      
       <Box
         id='mainBox'
         sx={{
@@ -82,7 +82,9 @@ const App: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          maxWidth: { xs: '100%', sm: '368px' },
+          width: '96%',
+          maxWidth: '470px',
+          minWidth: '320px',
           marginTop: '4px',
           ml: '6px',
           mr: '6px',
@@ -94,23 +96,38 @@ const App: React.FC = () => {
         sx={{
           ml: '6px',
           mr: '6px',
-          height: '36px',
-          width: '368px',
+          height: '36px',  
+          width: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-evenly',
           zIndex: 1000,
           flexDirection: 'row',
           bottom: '12px',
-        }}>
+        }}
+        onClick={() => setOpenAccount(true)}
+        style={{ cursor: 'pointer' }}>
         <PersonIcon></PersonIcon>
-        <Typography variant='h6' sx={{ fontSize: '16px', fontWeight: 500, color: '#000' }}>
-          User unknown 
+        <Typography variant='h6' sx={{ fontSize: '16px', fontWeight: 500, color: '#000' }} >
+          { loged ? currentUsername : 'LOG IN' }
         </Typography>
         </Box>
 
-        <Box id= 'StatusForm' sx={{ position: 'relative' }}  >
-          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', maxWidth: 470, height: '100%', marginBottom: '-18px'}}/>
+        <Modal
+          open={openAccount}
+          onClose={() => setOpenAccount(false)}
+          aria-labelledby="account-modal-title"
+          sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute' }}
+        >
+          <Box sx={{ position: 'absolute', boxShadow: 24, p: 4, borderRadius: 2 }}>
+            <Typography id="account-modal-title" variant="h6" component="h2">
+              Account Information
+            </Typography>
+          </Box>
+        </Modal>
+
+        <Box id= 'StatusForm' sx={{ position: 'relative', width: '100%' }}  >
+          <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%', marginBottom: '-18px'}}/>
           <Box id='StatusMonitor' sx={{ alignItems: 'center', display: 'flex',  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'space-around', width: '90%' }}>
             <CircularProgress sx={{ color: '#fff', size: 70 }} style={{ width: 70, height: 70,  }} variant='indeterminate'></CircularProgress>
             <Box id='StatusTexts' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, maxHeight: '100%' }}>
@@ -161,7 +178,7 @@ const App: React.FC = () => {
           </Box>
           </Box>
 
-        <Box id='MainButton' sx={{ transform: 'translateY(2px)', position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: '-49px', marginTop: '-49px', width: '98px', height: '98px', justifyContent: 'center', zIndex: 1, cursor: 'pointer' }} onClick={setCurrentInputCoin}>
+        <Box id='MainButton' sx={{ transform: 'translateY(2px)', position: 'relative', display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: '-49px', marginTop: '-49px', width: '98px', height: '98px', justifyContent: 'center', zIndex: 1, cursor: 'pointer' }} >
           <img id="mb" src="label.svg" alt="MainButton" style={{ width: '75px', height: '75px'}}/>
         </Box>
 
@@ -221,12 +238,12 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-        <Box id='LastBlock' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', transform: 'translateY(-6.5%)' }}>
-            <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm" style={{width: '100%', maxWidth: 470 }}/>
+        <Box id='LastBlock' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', transform: 'translateY(-6.5%)', width: '100%' }}>
+            <img id='ImgFinalStageForm' src="FinalStageForm.svg" alt="finalStageForm" style={{width: '100%'}}/>
             
-            <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '12px', maxWidth: '92%' }} >
+            <Box id='FinalForm' sx={{ position: 'absolute', marginTop: '12px', width: '92%' }} >
               <Box id='FinalButtonsAndText' display='flex' flexDirection='column' gap='8px' alignItems='center' >
-                <Box sx={{ display:'flex', justifyContent:'center' }}>
+                <Box sx={{ display:'flex', justifyContent:'center', width: '100%' }}>
                   <img id='BookButtonImg' src='bookButton.svg' alt='boobButoon' width='100%'></img>
                 </Box>
                 <TextField
@@ -271,7 +288,6 @@ const App: React.FC = () => {
           </Box>
         </Box>
 
-      </Box>
       </Box>
     </Box>
   );
