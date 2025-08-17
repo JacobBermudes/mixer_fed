@@ -1,4 +1,4 @@
-import { Avatar, Button, TextField } from '@mui/material';
+import { Avatar, Button, Dialog, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -8,17 +8,18 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SendIcon from '@mui/icons-material/Send';
 import PersonIcon from '@mui/icons-material/Person';
+import bcrypt from 'bcryptjs'
 
 const App: React.FC = () => {
 
   const [openAccount, setOpenAccount] = useState(false);
   const [loged, setLoged] = useState(false);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const [currentInputCoin, setCurrentInputCoin] = useState("0.001");
   const [currentOutputCoin, setCurrentOutputCoin] = useState("0.001");
   const [currencies, setCurrencies] = useState([]);
-  const [currentUsername, setCurrentUsername] = useState("");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedCurrency, setSelectedCurrency] = useState<any>(null);
   const open = Boolean(anchorEl);
@@ -27,7 +28,10 @@ const App: React.FC = () => {
   const [anchorElOut, setAnchorElOut] = useState<null | HTMLElement>(null);
   const openOut = Boolean(anchorElOut);
 
+  const salt = "4MMC"
+
   let jwt_token: string | null = null;
+  let logged = false;
 
   useEffect(() => {
     fetch('https://xmr-gate.onrender.com/api/v1/currencies')
@@ -44,11 +48,15 @@ const App: React.FC = () => {
         else if (data.data.length > 0) setSelectedOutputCurrency(data.data[0]);
       });
     jwt_token = localStorage.getItem('jwt');
+
+    console.log(jwt_token)
+
+    if (jwt_token != null) setLoged(true);
   }, []);
 
   function loginUserPass(username: string, password: string) {
     fetch('https://xmr-gate.onrender.com/api/v1/login', {
-      method: 'POST',
+      method: 'GET',
       body: JSON.stringify(
         { username: username,
           password: password }
@@ -63,6 +71,7 @@ const App: React.FC = () => {
         if (data.token) {
           localStorage.setItem('jwt', data.token);
           setLoged(true);
+          setUsername(data.username)
         } else {
           throw new Error('No token received');
         }
@@ -70,6 +79,25 @@ const App: React.FC = () => {
       .catch(error => {
         console.error('Error:', error);
         alert('Login failed: ' + error.message);
+      });
+    
+  }
+
+  function registerUserPass(username: string, password: string) {
+     fetch('https://xmr-gate.onrender.com/api/v1/register', {
+      method: 'POST',
+      body: JSON.stringify(
+        { username: username,
+          password: bcrypt.hashSync(password, salt) }
+      )
+      }).then(res => {
+        if (!res.ok) {
+          throw new Error('Register failed');
+        }
+      })
+      .catch(error => {
+        console.error('RegError:', error);
+        alert('Register failed: ' + error.message);
       });
   }
 
@@ -103,7 +131,6 @@ const App: React.FC = () => {
         overflow: 'auto',
       }}
       >
-      
       <Box
         id='mainBox'
         sx={{
@@ -123,8 +150,6 @@ const App: React.FC = () => {
         <Box
         id='AccountShower'
         sx={{
-          ml: '6px',
-          mr: '6px',
           height: '36px',  
           width: '100%',
           display: 'flex',
@@ -138,52 +163,69 @@ const App: React.FC = () => {
         style={{ cursor: 'pointer' }}>
         <PersonIcon></PersonIcon>
         <Typography variant='h6' sx={{ fontSize: '16px', fontWeight: 500, color: '#000' }} >
-          { loged ? jwt_token : 'SIGN IN' }
+          { loged ? username : 'SIGN IN' }
         </Typography>
         </Box>
 
-        <Modal
-          open={openAccount && !loged}
+        <Dialog
+          id="accountWindow"
+          open={openAccount}
           onClose={() => setOpenAccount(false)}
           aria-labelledby="account-modal-title"
-          sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute' }}
+          sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute'}}
         >
-          <Box sx={{ position: 'absolute', boxShadow: 24, p: 4, borderRadius: 2, backgroundColor: '#fff' }}>
-            <Typography id="account-modal-title" variant="h6" component="h2">
-              Log-in
-            </Typography>
-            <TextField
-              id="username"
-              label="Username"
-              value={currentUsername}
-              sx={{ width: '100%'}}
-              onChange={(e) => setCurrentUsername(e.target.value)}
-              focused
-            >
-            </TextField>
-            <TextField
-              id="passowrd"
-              label="Password"
-              value={password}
-              sx={{ width: '100%', marginTop: '16px' }}
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              focused
-            >
-            </TextField>
-            <Button
-              variant="contained"
-              sx={{ width: '100%', marginTop: '16px' }}
-              onClick={() => {
-                if (password) {
-                  loginUserPass(currentUsername, password);
-                  setOpenAccount(false);
-                }
-              }}>
-              Log In
-            </Button>
-          </Box>
-        </Modal>
+          <Typography id="account-modal-title" variant="h6" component="h2" sx={{mb: '10%', ml: '6%'}}>
+                Log-in
+          </Typography>
+          <form style={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px',justifyContent: 'center'}}>
+              <TextField
+                id="username"
+                label="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                focused
+                sx={{ ml: '16px', mr: '16px'}}
+              >
+              </TextField>
+              <TextField
+                id="passowrd"
+                label="Password"
+                autoComplete=''
+                value={password}
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                focused
+                sx={{ ml: '16px', mr: '16px'}}
+              >
+              </TextField>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', mb: '10%'}}>
+              <Button
+                variant="contained"
+                sx={{ marginTop: '16px', width: '42%' }}
+                onClick={() => {
+                  if (password) {
+                    registerUserPass(username, password);
+                    loginUserPass(username, password);
+                  }
+                }}>
+                Register
+              </Button>
+              <Button
+                variant="contained"
+                sx={{ marginTop: '16px', width: '42%' }}
+                onClick={() => {
+                  if (password) {
+                    loginUserPass(username, password);
+                    setOpenAccount(false);
+                  }
+                }}>
+                Log In
+              </Button>
+            </Box>
+          </form>
+        </Dialog>
 
         <Box id= 'StatusForm' sx={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}  >
           <img id='ImgStatusForm' src="statusForm.svg" alt="statusForm" style={{ width: '100%', height: '100%' }}/>
@@ -352,9 +394,6 @@ const App: React.FC = () => {
   );
 };
 
-function setCurrentInputCoin() {
-  console.log(`Работает`)
-}
 
 export default App; 
 
